@@ -1,7 +1,7 @@
 package com.devPath.project.model;
 
-import com.devPath.shared.enums.Difficulty;
-import com.devPath.shared.enums.Skill;
+import com.devPath.project.resources.Difficulty;
+import com.devPath.project.resources.Skill;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

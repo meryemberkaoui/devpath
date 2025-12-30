@@ -52,6 +52,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
     testCompileOnly 'org.projectlombok:lombok:1.18.32'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 // Configuration pour Lombok + MapStruct

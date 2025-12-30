@@ -1,7 +1,7 @@
 package com.devPath.project.repository;
 
 import com.devPath.project.model.Project;
-import com.devPath.shared.enums.Difficulty;
+import com.devPath.project.resources.Difficulty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

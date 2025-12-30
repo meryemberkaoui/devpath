@@ -1,4 +1,4 @@
-package com.devPath.shared.enums;
+package com.devPath.project.resources;
 
 public enum Difficulty {
     BEGINNER,
