@@ -1,8 +1,9 @@
 package com.devPath.project.controller;
 
 import com.devPath.project.model.dto.*;
+import com.devPath.project.resources.Difficulty;
+import com.devPath.project.resources.Skill;
 import com.devPath.project.service.ProjectService;
-import com.devPath.project.service.ProjectServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -15,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    //TODO : project service not complete
     private final ProjectService projectService;
 
     @PostMapping
@@ -49,5 +49,33 @@ public class ProjectController {
         projectService.deleteProject(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/myprojects")
+    public ResponseEntity<List<ProjectResponse>> getMyProjects() {
+        return ResponseEntity.ok(projectService.getMyProjects());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProjectResponse>> searchByTitle(
+            @RequestParam String title) {
+        return ResponseEntity.ok(projectService.searchByTitle(title));
+    }
+
+    @GetMapping("/difficulty/{difficulty}")
+    public ResponseEntity<List<ProjectResponse>> getByDifficulty(
+            @PathVariable Difficulty difficulty) {
+        return ResponseEntity.ok(projectService.findByDifficulty(difficulty));
+    }
+
+    @GetMapping("/skill/{skill}")
+    public ResponseEntity<List<ProjectResponse>> getBySkill(
+            @PathVariable Skill skill) {
+        return ResponseEntity.ok(projectService.findBySkill(skill));
+    }
+
+
+
+
+
 
 }

@@ -2,12 +2,14 @@ package com.devPath.project.model;
 
 import com.devPath.project.resources.Difficulty;
 import com.devPath.project.resources.Skill;
+import com.devPath.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "projects")
@@ -31,6 +33,7 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
+    @ElementCollection
     @CollectionTable(name = "project_skills",
             joinColumns = @JoinColumn(name = "project_id"))
     @Enumerated(EnumType.STRING)
@@ -41,13 +44,8 @@ public class Project {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    //TODO : replace type User from string to entity User
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "owner_id", nullable = false)
-    private String owner_id;
-
-
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
 
 }

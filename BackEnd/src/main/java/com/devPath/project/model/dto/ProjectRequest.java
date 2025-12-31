@@ -2,8 +2,7 @@ package com.devPath.project.model.dto;
 
 import com.devPath.project.resources.Difficulty;
 import com.devPath.project.resources.Skill;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.Set;
@@ -23,8 +22,13 @@ public class ProjectRequest {
     @NotNull(message = "Difficulty is required")
     private Difficulty difficulty;
 
+    @NotEmpty(message = "At least one skill is required")
     private Set<Skill> skills;
 
+    @Pattern(
+            regexp = "^(https?://)?(www\\\\.)?github\\\\.com/.+",
+            message = "Invalid GitHub URL"
+    )
     private String gitHubURL;
 
 }

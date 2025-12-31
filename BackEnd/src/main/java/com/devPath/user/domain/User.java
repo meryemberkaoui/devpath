@@ -1,10 +1,12 @@
 package com.devPath.user.domain;
 
+import com.devPath.project.model.Project;
 import com.devPath.user.ressources.Level;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +27,8 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Project> projects;
 
     private Level level;
     private String githubUrl;

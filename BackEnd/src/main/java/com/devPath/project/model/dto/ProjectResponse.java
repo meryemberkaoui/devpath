@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -18,12 +19,12 @@ public class ProjectResponse {
     private String description;
     private Difficulty difficulty;
     private Set<Skill> skills;
-    private String githubUrl;
+    private String gitHubURL;
     private LocalDateTime createdAt;
 
     // Info about the owner who react project
     // (without calling User object)
-    private Long ownerId;
-    private String ownerUsername;
-    private String ownerEmail;
+    private UUID owner_id;
+    private String owner_username;
+    private String owner_email;
 }
