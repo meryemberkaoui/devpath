@@ -26,7 +26,7 @@ public class ProjectRequest {
     private Set<Skill> skills;
 
     @Pattern(
-            regexp = "^(https?://)?(www\\\\.)?github\\\\.com/.+",
+            regexp = "^(https?://)?(www\\.)?github\\.com/.+",
             message = "Invalid GitHub URL"
     )
     private String gitHubURL;

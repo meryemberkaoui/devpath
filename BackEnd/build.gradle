@@ -19,50 +19,56 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-h2console'
+
+	// === Web / REST ===
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// === Validation (jakarta.validation.*) ===
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// === JPA ===
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+	// === Security ===
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    implementation 'org.springframework.security:spring-security-oauth2-jose'
-    runtimeOnly 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.security:spring-security-oauth2-jose'
+
+	// === Databases ===
 	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'com.h2database:h2'
 
-	//Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	// === Swagger / OpenAPI ===
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 
-	//MapStruct
+	// === Lombok ===
+	compileOnly 'org.projectlombok:lombok:1.18.32'
+	annotationProcessor 'org.projectlombok:lombok:1.18.32'
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+	testCompileOnly 'org.projectlombok:lombok:1.18.32'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+	// === MapStruct ===
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
-	//Swagger
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	testImplementation 'org.springframework.boot:spring-boot-webmvc-test:4.0.1'
+	// === Tests ===
+	testImplementation('org.springframework.boot:spring-boot-starter-test:4.0.1') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 
-	//Tests
-	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-data-rest-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-jdbc-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    compileOnly 'org.projectlombok:lombok:1.18.32'
-    annotationProcessor 'org.projectlombok:lombok:1.18.32'
-    testCompileOnly 'org.projectlombok:lombok:1.18.32'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-}
 
-// Configuration pour Lombok + MapStruct
-tasks.named('compileJava') {
-	options.compilerArgs += [
-			'-Amapstruct.defaultComponentModel=spring'
-	]
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs += [
+			"-Amapstruct.defaultComponentModel=spring"
+	]
 }

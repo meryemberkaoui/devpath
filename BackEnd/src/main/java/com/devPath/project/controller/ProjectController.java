@@ -26,8 +26,15 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResponse> getProject(@PathVariable Long id) {
-        ProjectResponse response = projectService.getProjectById(id);
-        return ResponseEntity.ok(response);
+        try {
+            ProjectResponse response = projectService.getProjectById(id);
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("not found")) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping
@@ -40,14 +47,28 @@ public class ProjectController {
     public ResponseEntity<ProjectResponse> updateProject(
             @PathVariable Long id,
             @Valid @RequestBody ProjectRequest request) {
-        ProjectResponse response = projectService.updateProject(id, request);
-        return ResponseEntity.ok(response);
+        try {
+            ProjectResponse updatedProject = projectService.updateProject(id, request);
+            return ResponseEntity.ok(updatedProject);
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("not found")) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
-        projectService.deleteProject(id);
-        return ResponseEntity.noContent().build();
+        try {
+            projectService.deleteProject(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("not found")) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping("/myprojects")

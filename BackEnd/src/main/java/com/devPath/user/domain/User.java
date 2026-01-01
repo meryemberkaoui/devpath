@@ -3,8 +3,7 @@ package com.devPath.user.domain;
 import com.devPath.project.model.Project;
 import com.devPath.user.ressources.Level;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +11,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 @Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue
