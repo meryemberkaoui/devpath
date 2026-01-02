@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/projects")
+@RequestMapping("/public/api/projects")
 @RequiredArgsConstructor
 public class ProjectController {
 
@@ -24,18 +24,13 @@ public class ProjectController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResponse> getProject(@PathVariable Long id) {
-        try {
-            ProjectResponse response = projectService.getProjectById(id);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            if (e.getMessage().contains("not found")) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.internalServerError().build();
-        }
+        ProjectResponse response = projectService.getProjectById(id);
+        return ResponseEntity.ok(response);
     }
+
 
     @GetMapping
     public ResponseEntity<List<ProjectResponse>> getAllProjects() {
